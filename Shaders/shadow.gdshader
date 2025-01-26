@@ -1,43 +1,91 @@
 shader_type canvas_item;
 
-uniform float rotation_angle = 0.0;
-uniform float shadow_offset = 0.1;
-uniform vec4 shadow_color = vec4(0.0, 0.0, 0.0, 0.5);
+uniform bool debug = false;
+uniform float border_scale = 2.0;
+uniform vec2 shadow_offset = vec2(-10.0, -10.0);
+uniform vec4 color : source_color;
+uniform float blur_amount : hint_range(0.0, 5.0) = 0.0;
+uniform float shadow_scale = 1.5;
+uniform bool disable_rotating = false;
+
+varying flat vec4 modulate;
+varying flat float sprite_rotation;
 
 void vertex() {
-	// Called for every vertex the material is visible on.
+    float final_scale = max(border_scale, border_scale * shadow_scale);
+    VERTEX.xy *= vec2(final_scale);
+    modulate = COLOR;
+    sprite_rotation = atan(MODEL_MATRIX[0][1], MODEL_MATRIX[0][0]);
+}
+
+vec4 sample_texture_safe(sampler2D tex, vec2 uv) {
+    return (uv.x < 0.0 || uv.x > 1.0 || uv.y < 0.0 || uv.y > 1.0) 
+        ? vec4(0.0) 
+        : texture(tex, uv);
+}
+
+vec4 apply_gaussian_blur(sampler2D tex, vec2 uv, vec2 pixel_size) {
+    if (blur_amount <= 0.0) return sample_texture_safe(tex, uv);
+    
+    vec4 color_blur = vec4(0.0);
+    float total_weight = 0.0;
+    int kernel_size = int(blur_amount * 3.0);
+    
+    for (int x = -kernel_size; x <= kernel_size; x++) {
+        for (int y = -kernel_size; y <= kernel_size; y++) {
+            vec2 blur_offset = vec2(float(x), float(y)) * pixel_size;
+            float weight = exp(-0.5 * (float(x * x + y * y)) / (blur_amount * blur_amount));
+            color_blur += sample_texture_safe(tex, uv + blur_offset) * weight;
+            total_weight += weight;
+        }
+    }
+    
+    return total_weight > 0.0 ? color_blur / total_weight : vec4(0.0);
+}
+
+vec2 rotate_point(vec2 point, float angle) {
+    float s = sin(angle);
+    float c = cos(angle);
+    return vec2(
+        point.x * c - point.y * s,
+        point.x * s + point.y * c
+    );
+}
+
+float calculate_fade(float coord, float scale) {
+    if (coord < 0.0) {
+        return 1.0 + (coord / (scale - 1.0));
+    } else if (coord > 1.0) {
+        return 1.0 - ((coord - 1.0) / (scale - 1.0));
+    }
+    return 1.0;
+}
+
+vec4 process_texture(vec2 uv, sampler2D tex, bool is_main, vec2 pixel_size) {
+    if (is_main) {
+        return sample_texture_safe(tex, uv) * modulate;
+    }
+    
+    vec4 blurred = apply_gaussian_blur(tex, uv, pixel_size);
+    float fade_x = calculate_fade(uv.x, shadow_scale);
+    float fade_y = calculate_fade(uv.y, shadow_scale);
+    float fade = smoothstep(0.0, 1.0, min(fade_x, fade_y));
+    
+    return vec4(color.rgb, (blurred.a - (1.0 - color.a)) * modulate.a * fade);
 }
 
 void fragment() {
-	// Called for every pixel the material is visible on.
-    float cos_angle = cos(rotation_angle);
-    float sin_angle = sin(rotation_angle);
-    mat2 rotation_matrix = mat2(
-        vec2(cos_angle, -sin_angle),
-        vec2(sin_angle, cos_angle)
-    );
-
-    mat2 scale_matrix = mat2(
-        vec2(1.0, 0.0),
-        vec2(0.0, TEXTURE_PIXEL_SIZE.x / TEXTURE_PIXEL_SIZE.y)
-    );
-
-    vec2 transformed_uv = (UV - vec2(0.5)) * scale_matrix;
-    transformed_uv = rotation_matrix * transformed_uv;
-	vec2 offset_direction = vec2(cos(rotation_angle), sin(rotation_angle)) * shadow_offset;
-    transformed_uv += vec2(0.5) + offset_direction;
-	
-    vec4 shadow_texture = vec4(0.0);
-    if (transformed_uv.x >= 0.0 && transformed_uv.x <= 1.0 && transformed_uv.y >= 0.0 && transformed_uv.y <= 1.0) {
-        shadow_texture = texture(TEXTURE, transformed_uv) * vec4(shadow_color.rgb, shadow_color.a * texture(TEXTURE, transformed_uv).a);
-    }
-
-    vec4 original_texture = texture(TEXTURE, UV);
-
-    COLOR = mix(shadow_texture, original_texture, original_texture.a);
+    float final_scale = max(border_scale, border_scale * shadow_scale);
+    vec2 scaled_uv = UV * final_scale - (0.5 * (final_scale - 1.0));
+    
+    vec4 main_texture = process_texture(scaled_uv, TEXTURE, true, TEXTURE_PIXEL_SIZE);
+    
+    vec2 adjusted_offset = disable_rotating ? shadow_offset : rotate_point(shadow_offset, -sprite_rotation);
+    vec2 shadow_uv = scaled_uv + adjusted_offset * TEXTURE_PIXEL_SIZE;
+    
+    vec4 shadow = process_texture(shadow_uv, TEXTURE, false, TEXTURE_PIXEL_SIZE);
+    
+    vec4 res = mix(shadow, main_texture, main_texture.a);
+	vec4 debug_layer = vec4(1.0, 0.0, 0.0, 0.3);
+	COLOR = mix(debug ? debug_layer : res, res, res.a);
 }
-
-//void light() {
-	// Called for every pixel for every light affecting the CanvasItem.
-	// Uncomment to replace the default light processing function with this one.
-//}

@@ -7,9 +7,13 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xpot4"]
 shader = ExtResource("2_bym43")
-shader_parameter/rotation_angle = 0.0
-shader_parameter/shadow_offset = 0.1
-shader_parameter/shadow_color = Vector4(0, 0, 0, 0.5)
+shader_parameter/debug = false
+shader_parameter/border_scale = 2.0
+shader_parameter/shadow_offset = Vector2(-10, -10)
+shader_parameter/color = null
+shader_parameter/blur_amount = 0.0
+shader_parameter/shadow_scale = 1.5
+shader_parameter/disable_rotating = false
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2nkuh"]
 
