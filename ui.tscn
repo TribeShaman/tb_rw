@@ -1,6 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://ddoeholnt2lip"]
+[gd_scene load_steps=7 format=3 uid="uid://ddoeholnt2lip"]
 
+[ext_resource type="PackedScene" uid="uid://5vglv2preu2h" path="res://Towers/GreenTowerPanel.tscn" id="1_gp847"]
 [ext_resource type="PackedScene" uid="uid://crnrm71rqmepv" path="res://Towers/RedTowerPanel.tscn" id="2_5wnq8"]
+[ext_resource type="Texture2D" uid="uid://svanc4ee172t" path="res://tower-defense-top-down/PNG/Default size/towerDefense_tile287.png" id="2_g2ubc"]
+[ext_resource type="Texture2D" uid="uid://dejrnyhfh6wux" path="res://tower-defense-top-down/PNG/Default size/towerDefense_tile289.png" id="3_hguhn"]
 
 [sub_resource type="GDScript" id="GDScript_fdl0b"]
 script/source = "extends Label
@@ -13,7 +16,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	self.text = \"Gold: \" + str(Game.Gold)
+	self.text = str(Game.Gold)
 "
 
 [sub_resource type="GDScript" id="GDScript_puusd"]
@@ -21,7 +24,7 @@ script/source = "extends Label
 
 
 func _process(delta):
-	self.text = \"HP: \" + str(Game.Health)
+	self.text = str(Game.Health)
 "
 
 [node name="UI" type="CanvasLayer"]
@@ -41,26 +44,36 @@ scale = Vector2(3, 3)
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 
+[node name="GreenTowerPanel" parent="Panel/TowerContainer" instance=ExtResource("1_gp847")]
+layout_mode = 2
+
 [node name="RedTowerPanel" parent="Panel/TowerContainer" instance=ExtResource("2_5wnq8")]
 layout_mode = 2
 
-[node name="RedTowerPanel2" parent="Panel/TowerContainer" instance=ExtResource("2_5wnq8")]
-layout_mode = 2
-
-[node name="RedTowerPanel3" parent="Panel/TowerContainer" instance=ExtResource("2_5wnq8")]
-layout_mode = 2
-
 [node name="Gold" type="Label" parent="."]
-offset_left = 512.0
-offset_right = 1024.0
-offset_bottom = 140.0
+offset_left = 674.0
+offset_top = -2.0
+offset_right = 1186.0
+offset_bottom = 138.0
 theme_override_font_sizes/font_size = 100
 text = "gold"
 script = SubResource("GDScript_fdl0b")
 
 [node name="Health" type="Label" parent="."]
-offset_right = 512.0
-offset_bottom = 140.0
+offset_left = 146.0
+offset_top = 2.0
+offset_right = 545.0
+offset_bottom = 142.0
 theme_override_font_sizes/font_size = 100
-text = "gold"
+text = "health"
 script = SubResource("GDScript_puusd")
+
+[node name="TowerDefenseTile287" type="Sprite2D" parent="."]
+position = Vector2(584.25, 64.25)
+scale = Vector2(2.39844, 2.39844)
+texture = ExtResource("2_g2ubc")
+
+[node name="TowerDefenseTile289" type="Sprite2D" parent="."]
+position = Vector2(70, 65)
+scale = Vector2(2.65625, 2.65625)
+texture = ExtResource("3_hguhn")

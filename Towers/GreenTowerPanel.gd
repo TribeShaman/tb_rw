@@ -1,6 +1,6 @@
 extends Panel
 
-@onready var tower = preload("res://Towers/RedBullet.tscn")
+@onready var tower = preload("res://Towers/GreenBullet.tscn")
 var currTile
 var placement_canceled = false
 var root 
@@ -18,7 +18,7 @@ func setup_root():
 func _on_gui_input(event):
 	setup_root()
 	var cam =  root.get_node("Camera2D")
-	if Game.Gold >= 20:
+	if Game.Gold >= 10:
 		var tempTower = tower.instantiate()
 		if event is InputEventMouseButton and event.button_mask == 1:
 			if placement_canceled:
@@ -78,7 +78,7 @@ func _on_gui_input(event):
 						tempTower.global_position = cam.get_global_mouse_position()
 						tempTower.get_node("Area").hide()
 						tempTower.startShooting = true
-						Game.Gold -= 20
+						Game.Gold -= 10
 		else:
 			if get_child_count() > 1:
 				get_child(1).queue_free()
