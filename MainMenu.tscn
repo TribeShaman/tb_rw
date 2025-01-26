@@ -14,6 +14,7 @@ script/source = "extends Node2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Game.Health = 10
+	Game.EnemiesDownThreshold = 5
 "
 
 [sub_resource type="GDScript" id="GDScript_8shnr"]

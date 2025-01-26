@@ -19,6 +19,8 @@ func _ready():
 func _process(delta):
 	if Game.Health <= 0:
 		get_tree().change_scene_to_file(\"res://MainMenu.tscn\")
+	if Game.EnemiesDown >= Game.EnemiesDownThreshold:
+		get_tree().change_scene_to_file(\"res://MainMenu.tscn\")
 "
 
 [sub_resource type="GDScript" id="GDScript_bahdm"]
