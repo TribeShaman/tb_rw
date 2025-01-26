@@ -1,8 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://ce5r4nfsiuwjc"]
+[gd_scene load_steps=10 format=3 uid="uid://ce5r4nfsiuwjc"]
 
 [ext_resource type="PackedScene" uid="uid://dedc4s5gs6k8v" path="res://Tiles/TileMap.tscn" id="1_gd7xx"]
 [ext_resource type="Script" path="res://bg_music.gd" id="2_7efva"]
 [ext_resource type="AudioStream" uid="uid://dag6at4k52s50" path="res://Sounds/Music/beat1.mp3" id="2_65c22"]
+[ext_resource type="Script" path="res://Play2.gd" id="4_nt1bt"]
+[ext_resource type="Script" path="res://Play3.gd" id="5_s6t51"]
+[ext_resource type="Script" path="res://Play4.gd" id="6_du6db"]
 
 [sub_resource type="GDScript" id="GDScript_ubuel"]
 script/source = "extends Node2D
@@ -54,19 +57,19 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Play" type="Button" parent="."]
-offset_left = 1024.0
-offset_top = 1024.0
-offset_right = 1536.0
-offset_bottom = 1344.0
+offset_left = 502.0
+offset_top = 656.0
+offset_right = 1014.0
+offset_bottom = 976.0
 theme_override_font_sizes/font_size = 100
-text = "Play"
+text = "Stage 1"
 script = SubResource("GDScript_8shnr")
 
 [node name="Quit" type="Button" parent="."]
-offset_left = 2048.0
-offset_top = 1024.0
-offset_right = 2560.0
-offset_bottom = 1344.0
+offset_left = 1591.0
+offset_top = 1161.0
+offset_right = 2103.0
+offset_bottom = 1481.0
 theme_override_font_sizes/font_size = 100
 text = "Quit"
 script = SubResource("GDScript_hodjd")
@@ -77,5 +80,35 @@ autoplay = true
 bus = &"Music"
 script = ExtResource("2_7efva")
 
+[node name="Play2" type="Button" parent="."]
+offset_left = 1199.0
+offset_top = 652.0
+offset_right = 1711.0
+offset_bottom = 972.0
+theme_override_font_sizes/font_size = 100
+text = "Stage 2"
+script = ExtResource("4_nt1bt")
+
+[node name="Play3" type="Button" parent="."]
+offset_left = 1932.0
+offset_top = 655.0
+offset_right = 2444.0
+offset_bottom = 975.0
+theme_override_font_sizes/font_size = 100
+text = "Stage 3"
+script = ExtResource("5_s6t51")
+
+[node name="Play4" type="Button" parent="."]
+offset_left = 2572.0
+offset_top = 642.0
+offset_right = 3084.0
+offset_bottom = 962.0
+theme_override_font_sizes/font_size = 100
+text = "Stage 4"
+script = ExtResource("6_du6db")
+
 [connection signal="pressed" from="Play" to="Play" method="_on_pressed"]
 [connection signal="pressed" from="Quit" to="Quit" method="_on_pressed"]
+[connection signal="pressed" from="Play2" to="Play2" method="_on_pressed"]
+[connection signal="pressed" from="Play3" to="Play3" method="_on_pressed"]
+[connection signal="pressed" from="Play4" to="Play4" method="_on_pressed"]

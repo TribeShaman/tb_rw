@@ -3,9 +3,21 @@ extends Panel
 @onready var tower = preload("res://Towers/RedBullet.tscn")
 var currTile
 var placement_canceled = false
+var root 
 
+func setup_root():
+	if get_tree().get_root().get_node("Main") != null:
+		root = get_tree().get_root().get_node("Main")
+	if get_tree().get_root().get_node("Main2") != null:
+		root = get_tree().get_root().get_node("Main2")
+	if get_tree().get_root().get_node("Main3") != null:
+		root = get_tree().get_root().get_node("Main3")
+	if get_tree().get_root().get_node("Main4") != null:
+		root = get_tree().get_root().get_node("Main4")
+		
 func _on_gui_input(event):
-	var cam = get_tree().get_root().get_node("Main/Camera2D")
+	setup_root()
+	var cam =  root.get_node("Camera2D")
 	if Game.Gold >= 10:
 		var tempTower = tower.instantiate()
 		if event is InputEventMouseButton and event.button_mask == 1:
@@ -24,7 +36,7 @@ func _on_gui_input(event):
 				
 				get_child(1).global_position = event.global_position
 				#Check if on Dirt Tile.
-				var mapPath = get_tree().get_root().get_node("Main/TileMap")
+				var mapPath =  root.get_node("TileMap")
 				var tile = mapPath.local_to_map(cam.get_global_mouse_position())
 				currTile = mapPath.get_cell_atlas_coords(0, tile, false)
 				var targets = get_child(1).get_node("TowerDetector").get_overlapping_bodies()
@@ -60,7 +72,7 @@ func _on_gui_input(event):
 					var targets = []
 					if get_child_count() > 1 and is_instance_valid(get_child(1)):
 						targets = get_child(1).get_node("TowerDetector").get_overlapping_bodies()
-					var path = get_tree().get_root().get_node("Main/Towers")
+					var path =  root.get_node("Towers")
 					if (targets.size() < 2):
 						path.add_child(tempTower)
 						tempTower.global_position = cam.get_global_mouse_position()
