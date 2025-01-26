@@ -1,8 +1,15 @@
-[gd_scene load_steps=11 format=3 uid="uid://jn2rceiqhdmc"]
+[gd_scene load_steps=13 format=3 uid="uid://jn2rceiqhdmc"]
 
 [ext_resource type="Script" path="res://Mobs/solider.gd" id="1_0wax5"]
 [ext_resource type="Texture2D" uid="uid://dbfspariweuj2" path="res://tower-defense-top-down/PNG/Default size/towerDefense_tile245.png" id="1_t12l6"]
+[ext_resource type="Shader" path="res://Shaders/shadow.gdshader" id="2_bym43"]
 [ext_resource type="AudioStream" uid="uid://dfopte5tis11m" path="res://Sounds/SFX/popfx.mp3" id="3_hp2ux"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xpot4"]
+shader = ExtResource("2_bym43")
+shader_parameter/rotation_angle = 0.0
+shader_parameter/shadow_offset = 0.1
+shader_parameter/shadow_color = Vector4(0, 0, 0, 0.5)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2nkuh"]
 
@@ -151,6 +158,7 @@ script = ExtResource("1_0wax5")
 speed = 300
 
 [node name="TowerDefenseTile245" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_xpot4")
 texture = ExtResource("1_t12l6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
