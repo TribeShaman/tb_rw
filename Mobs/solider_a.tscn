@@ -9,8 +9,8 @@
 shader = ExtResource("2_bym43")
 shader_parameter/debug = false
 shader_parameter/border_scale = 2.0
-shader_parameter/shadow_offset = Vector2(-10, -10)
-shader_parameter/color = null
+shader_parameter/shadow_offset = Vector2(5, 5)
+shader_parameter/color = Color(0, 0, 0, 0.294118)
 shader_parameter/blur_amount = 0.0
 shader_parameter/shadow_scale = 1.5
 shader_parameter/disable_rotating = false
