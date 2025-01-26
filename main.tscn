@@ -12,7 +12,11 @@ script/source = "extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	Game.Health = 2
+	Game.Gold = 20
 	Game.EnemiesDown = 0
+	Game.EnemiesDownThreshold = 5
+	Game.EnemiesRemaining = Game.EnemiesDownThreshold
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -51,6 +55,7 @@ layer_1/tile_data = PackedInt32Array(786457, 983040, 5, 917533, 983040, 5, 11141
 script = ExtResource("2_3vi2l")
 
 [node name="Timer" type="Timer" parent="PathSpawner"]
+wait_time = 3.0
 autostart = true
 
 [node name="Towers" type="Node2D" parent="."]

@@ -11,6 +11,7 @@ func _physics_process(delta):
 	if get_parent().get_progress_ratio() == 1:
 		death()
 		if accounted == false:
+			Game.EnemiesDown += 1
 			Game.Health -= 1
 			accounted = true
 		
