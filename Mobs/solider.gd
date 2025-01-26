@@ -16,4 +16,6 @@ func _physics_process(delta):
 		Game.Gold += 1
 	
 func death():
-	get_parent().get_parent().queue_free()
+	$AnimationPlayer.play("DeathAnimation")
+	#get_parent().get_parent().queue_free()
+	

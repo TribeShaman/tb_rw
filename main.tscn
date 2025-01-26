@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://6c6kewqbkigy"]
+[gd_scene load_steps=8 format=3 uid="uid://6c6kewqbkigy"]
 
 [ext_resource type="PackedScene" uid="uid://dedc4s5gs6k8v" path="res://Tiles/TileMap.tscn" id="1_25n6f"]
 [ext_resource type="Script" path="res://PathSpawner.gd" id="2_3vi2l"]
 [ext_resource type="Script" path="res://Camera2D.gd" id="3_ogqfg"]
 [ext_resource type="PackedScene" uid="uid://ddoeholnt2lip" path="res://ui.tscn" id="4_4jwic"]
+[ext_resource type="AudioStream" uid="uid://f16dif55kob0" path="res://Sounds/Music/beat2.mp3" id="5_sovqp"]
 
 [sub_resource type="GDScript" id="GDScript_tiaqs"]
 script/source = "extends Node2D
@@ -58,5 +59,10 @@ position = Vector2(1792, 1024)
 script = ExtResource("3_ogqfg")
 
 [node name="UI" parent="." instance=ExtResource("4_4jwic")]
+
+[node name="bg_music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_sovqp")
+autoplay = true
+bus = &"Music"
 
 [connection signal="timeout" from="PathSpawner/Timer" to="PathSpawner" method="_on_timer_timeout"]
