@@ -6,13 +6,26 @@ var Speed = 1000
 var pathName = ""
 var bulletDamage
 var timeToLive = 1.0
+var root
 
+func setup_root():
+	if get_tree().get_root().get_node("Main") != null:
+		root = get_tree().get_root().get_node("Main")
+	if get_tree().get_root().get_node("Main2") != null:
+		root = get_tree().get_root().get_node("Main2")
+	if get_tree().get_root().get_node("Main3") != null:
+		root = get_tree().get_root().get_node("Main3")
+	if get_tree().get_root().get_node("Main4") != null:
+		root = get_tree().get_root().get_node("Main4")
+		
+		
 func _physics_process(delta):
+	setup_root()
 	timeToLive -= delta
 	if timeToLive <= 0:
 		queue_free()
 		
-	var pathSpawnerNode = get_tree().get_root().get_node("Main/PathSpawner")
+	var pathSpawnerNode = root.get_node("PathSpawner")
 	var target = null
 	
 	for i in pathSpawnerNode.get_child_count():

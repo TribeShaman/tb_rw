@@ -11,9 +11,21 @@ var range = 400
 
 @onready var timer = get_node("Upgrade/ProgressBar/Timer")
 var startShooting = false
+var root
 
+func setup_root():
+	if get_tree().get_root().get_node("Main") != null:
+		root = get_tree().get_root().get_node("Main")
+	if get_tree().get_root().get_node("Main2") != null:
+		root = get_tree().get_root().get_node("Main2")
+	if get_tree().get_root().get_node("Main3") != null:
+		root = get_tree().get_root().get_node("Main3")
+	if get_tree().get_root().get_node("Main4") != null:
+		root = get_tree().get_root().get_node("Main4")
+		
 
 func _process(delta):
+	setup_root()
 	get_node("Upgrade/ProgressBar").global_position = self.position + Vector2(-64,-81)
 	if is_instance_valid(curr):
 		self.look_at(curr.global_position)
@@ -60,8 +72,9 @@ func _on_tower_body_exited(body):
 
 
 func _on_input_event(viewport, event, shape_idx):
+	setup_root()
 	if event is InputEventMouseButton and event.button_mask == 1:
-		var towerPath = get_tree().get_root().get_node("Main/Towers")
+		var towerPath = root.get_node("Towers")
 		for i in towerPath.get_child_count():
 			if towerPath.get_child(i).name != self.name:
 				towerPath.get_child(i).get_node("Upgrade/Upgrade").hide()
