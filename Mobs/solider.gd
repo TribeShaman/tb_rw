@@ -9,7 +9,7 @@ func _physics_process(delta):
 	get_parent().set_progress(get_parent().get_progress() + speed*delta)
 	
 	if get_parent().get_progress_ratio() == 1:
-		death()
+		passed()
 		if accounted == false:
 			Game.EnemiesDown += 1
 			Game.Health -= 1
@@ -24,5 +24,7 @@ func _physics_process(delta):
 	
 func death():
 	$AnimationPlayer.play("DeathAnimation")
-	#get_parent().get_parent().queue_free()
+	
+func passed():
+	$AnimationPlayer.play("PassAnimation")
 	
