@@ -13,9 +13,11 @@ func _physics_process(delta):
 		if pathSpawnerNode.get_child(i).name == pathName:
 			target = pathSpawnerNode.get_child(i).get_child(0).get_child(0).global_position
 
-	velocity = global_position.direction_to(target) *Speed
-
-	look_at(target)
+	if target != null:
+		velocity = global_position.direction_to(target) * Speed
+		look_at(target)
+	else:
+		velocity = Vector2.ZERO
 	
 	move_and_slide()
 
