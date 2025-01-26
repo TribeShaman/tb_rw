@@ -34,6 +34,9 @@ func Shoot():
 	
 	
 func _on_tower_body_entered(body):
+	if startShooting == false:
+		return
+		
 	if "Solider A" in body.name:
 		var tempArray = []
 		currTargets = get_node("Tower").get_overlapping_bodies()

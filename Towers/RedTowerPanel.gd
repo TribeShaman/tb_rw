@@ -2,13 +2,16 @@ extends Panel
 
 @onready var tower = preload("res://Towers/RedBullet.tscn")
 var currTile
+var placement_canceled = false
 
 func _on_gui_input(event):
 	var cam = get_tree().get_root().get_node("Main/Camera2D")
 	if Game.Gold >= 10:
 		var tempTower = tower.instantiate()
 		if event is InputEventMouseButton and event.button_mask == 1:
-			
+			if placement_canceled:
+				return
+				
 			add_child(tempTower)
 			tempTower.global_position = cam.get_global_mouse_position()
 			#tempTower.process_mode = Node.PROCESS_MODE_DISABLED
@@ -33,8 +36,19 @@ func _on_gui_input(event):
 				else:
 					
 					get_child(1).get_node("Area").modulate = Color(255,255,255)
+					
+		elif event is InputEventMouseButton and event.button_mask == 3:
+			# right click to cancel tower placement
+			if get_child_count() > 1:
+				get_child(1).queue_free()
+				placement_canceled = true
+				
 		elif event is InputEventMouseButton and event.button_mask == 0:
 			#button left release
+			if placement_canceled:
+				placement_canceled = false
+				return
+				
 			if event.global_position.x >= 2944:
 				if get_child_count() > 1:
 					get_child(1).queue_free()
@@ -43,12 +57,15 @@ func _on_gui_input(event):
 				if get_child_count() > 1:
 					get_child(1).queue_free()
 				if currTile == Vector2i(4,5):
-					var targets = get_child(1).get_node("TowerDetector").get_overlapping_bodies()
+					var targets = []
+					if get_child_count() > 1 and is_instance_valid(get_child(1)):
+						targets = get_child(1).get_node("TowerDetector").get_overlapping_bodies()
 					var path = get_tree().get_root().get_node("Main/Towers")
 					if (targets.size() < 2):
 						path.add_child(tempTower)
 						tempTower.global_position = cam.get_global_mouse_position()
 						tempTower.get_node("Area").hide()
+						tempTower.startShooting = true
 						Game.Gold -= 10
 		else:
 			if get_child_count() > 1:
