@@ -107,7 +107,7 @@ func _on_range_pressed():
 	range += 30
 		
 func _on_attack_speed_pressed():
-	if Game.Gold < 20:
+	if Game.Gold < 10:
 		return
 		
 	if reload >= 1.5:
@@ -118,11 +118,11 @@ func _on_attack_speed_pressed():
 	Game.Gold -= 10
 		
 func _on_power_pressed():
-	if Game.Gold < 20:
+	if Game.Gold < 10:
 		return
 		
 	bulletDamage += 1
-	Game.Gold -= 20
+	Game.Gold -= 10
 		
 func _on_timer_timeout():
 	if curr != null:
