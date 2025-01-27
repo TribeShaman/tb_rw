@@ -3,7 +3,13 @@ extends Panel
 @onready var tower = preload("res://Towers/GreenBullet.tscn")
 var currTile
 var placement_canceled = false
-var root 
+var root
+var validTiles = [
+	Vector2i(4,5),
+	Vector2i(14,11),
+	Vector2i(14,2),
+	Vector2i(4,8),
+]
 
 func setup_root():
 	if get_tree().get_root().get_node("Main") != null:
@@ -40,7 +46,7 @@ func _on_gui_input(event):
 				var tile = mapPath.local_to_map(cam.get_global_mouse_position())
 				currTile = mapPath.get_cell_atlas_coords(0, tile, false)
 				var targets = get_child(1).get_node("TowerDetector").get_overlapping_bodies()
-				if (currTile == Vector2i(4,5)):
+				if currTile in validTiles:
 					if (targets.size() > 1):
 						get_child(1).get_node("Area").modulate = Color(255,255,255)
 					else:
@@ -68,7 +74,7 @@ func _on_gui_input(event):
 				#check for valid tile:
 				if get_child_count() > 1:
 					get_child(1).queue_free()
-				if currTile == Vector2i(4,5):
+				if currTile in validTiles:
 					var targets = []
 					if get_child_count() > 1 and is_instance_valid(get_child(1)):
 						targets = get_child(1).get_node("TowerDetector").get_overlapping_bodies()

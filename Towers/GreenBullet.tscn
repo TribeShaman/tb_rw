@@ -215,6 +215,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Cost" type="Label" parent="Upgrade/Upgrade/HBoxContainer/Range"]
+layout_mode = 0
 offset_left = 5.0
 offset_top = 127.0
 offset_right = 121.0
@@ -251,6 +252,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Cost" type="Label" parent="Upgrade/Upgrade/HBoxContainer/AttackSpeed"]
+layout_mode = 0
 offset_left = 5.0
 offset_top = 125.0
 offset_right = 121.0
@@ -287,6 +289,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Cost" type="Label" parent="Upgrade/Upgrade/HBoxContainer/Power"]
+layout_mode = 0
 offset_left = 5.0
 offset_top = 125.0
 offset_right = 121.0
