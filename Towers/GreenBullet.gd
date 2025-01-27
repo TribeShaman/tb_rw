@@ -2,9 +2,9 @@ extends StaticBody2D
 
 var Bullet = preload("res://Towers/Bullet.tscn")
 var bulletDamage = 10
-var pathName
+var pathName = ""
 var currTargets = []
-var curr
+var curr = null
 
 var reload = 0
 var range = 600
@@ -24,14 +24,17 @@ func setup_root():
 		root = get_tree().get_root().get_node("Main4")
 		
 
-func _process(delta):
+
+func _ready():
 	setup_root()
+	
+func _process(delta):
 	get_node("Upgrade/ProgressBar").global_position = self.position + Vector2(-64,-81)
 	if is_instance_valid(curr):
 		self.look_at(curr.global_position)
 		if timer.is_stopped():
-			Shoot()
-			timer.start()
+				Shoot()
+				timer.start()
 	else:
 		for i in get_node("BulletContainer").get_child_count():
 			get_node("BulletContainer").get_child(i).queue_free()
@@ -49,26 +52,40 @@ func _on_tower_body_entered(body):
 	if startShooting == false:
 		return
 		
-	if "Solider A" in body.name:
-		var tempArray = []
-		currTargets = get_node("Tower").get_overlapping_bodies()
-		for i in currTargets:
-			if "Solider" in i.name:
-				tempArray.append(i)
-			
-		var currTarget = null
-		for i in tempArray:
-			if currTarget == null:
-				currTarget = i.get_node("../")
-			else:
-				if i.get_parent().get_progress() > currTarget.get_progress():
-					currTarget = i.get_node("../")
-				
-		curr = currTarget
-		pathName = currTarget.get_parent().name
+	if "Solider" in body.name:
+		if body not in currTargets:
+			currTargets.append(body)
+	
+	choose_target()
 
 func _on_tower_body_exited(body):
-	currTargets = get_node("Tower").get_overlapping_bodies()
+	if startShooting == false:
+		return
+		
+	if body in currTargets:
+		currTargets.erase(body)
+		
+	choose_target()
+	
+func choose_target():
+	if currTargets.size() == 0:
+		curr = null
+		pathName = null
+		return
+	
+	var currTarget = null
+	for i in currTargets:
+		if currTarget == null:
+			currTarget = i.get_node("../")
+		else:
+			if i.get_parent().get_progress() > currTarget.get_progress():
+				currTarget = i.get_node("../")
+				
+	curr = currTarget
+	pathName = currTarget.get_parent().name
+	if timer.paused:
+		Shoot()
+		timer.paused = false
 
 
 func _on_input_event(viewport, event, shape_idx):
@@ -101,7 +118,10 @@ func _on_power_pressed():
 		Game.Gold -= 10
 		
 func _on_timer_timeout():
-	Shoot()
+	if curr != null:
+		Shoot()
+	else:
+		timer.paused = true
 
 
 func _on_range_mouse_entered():

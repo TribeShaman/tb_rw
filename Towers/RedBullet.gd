@@ -49,38 +49,40 @@ func _on_tower_body_entered(body):
 	if startShooting == false:
 		return
 		
-	if "Solider A" in body.name:
-		var tempArray = []
-		currTargets = get_node("Tower").get_overlapping_bodies()
-		for i in currTargets:
-			if "Solider" in i.name:
-				tempArray.append(i)
-			
-		var currTarget = null
-		for i in tempArray:
-			if currTarget == null:
-				currTarget = i.get_node("../")
-			else:
-				if i.get_parent().get_progress() > currTarget.get_progress():
-					currTarget = i.get_node("../")
-				
-		curr = currTarget
-		pathName = currTarget.get_parent().name
+	if "Solider" in body.name:
+		if body not in currTargets:
+			currTargets.append(body)
+	
+	choose_target()
 
 func _on_tower_body_exited(body):
-	currTargets = get_node("Tower").get_overlapping_bodies()
-
-
-func _on_input_event(viewport, event, shape_idx):
-	setup_root()
-	if event is InputEventMouseButton and event.button_mask == 1:
-		var towerPath = root.get_node("Towers")
-		for i in towerPath.get_child_count():
-			if towerPath.get_child(i).name != self.name:
-				towerPath.get_child(i).get_node("Upgrade/Upgrade").hide()
-		get_node("Upgrade/Upgrade").visible = !get_node("Upgrade/Upgrade").visible
-		get_node("Upgrade/Upgrade").global_position = self.position + Vector2(-572,81)
+	if startShooting == false:
+		return
 		
+	if body in currTargets:
+		currTargets.erase(body)
+		
+	choose_target()
+	
+func choose_target():
+	if currTargets.size() == 0:
+		curr = null
+		pathName = null
+		return
+	
+	var currTarget = null
+	for i in currTargets:
+		if currTarget == null:
+			currTarget = i.get_node("../")
+		else:
+			if i.get_parent().get_progress() > currTarget.get_progress():
+				currTarget = i.get_node("../")
+				
+	curr = currTarget
+	pathName = currTarget.get_parent().name
+	if timer.paused:
+		Shoot()
+		timer.paused = false
 
 func _on_range_pressed():
 	range += 30

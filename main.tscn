@@ -22,8 +22,10 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Game.Health <= 0:
+		await get_tree().create_timer(2).timeout
 		get_tree().change_scene_to_file(\"res://MainMenu.tscn\")
 	if Game.EnemiesDown >= Game.EnemiesDownThreshold:
+		await get_tree().create_timer(2).timeout
 		get_tree().change_scene_to_file(\"res://MainMenu.tscn\")
 "
 

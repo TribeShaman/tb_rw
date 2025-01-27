@@ -17,14 +17,11 @@ func setup_root():
 		root = get_tree().get_root().get_node("Main3")
 	if get_tree().get_root().get_node("Main4") != null:
 		root = get_tree().get_root().get_node("Main4")
-		
+
+func _ready():
+	setup_root()
 		
 func _physics_process(delta):
-	setup_root()
-	timeToLive -= delta
-	if timeToLive <= 0:
-		queue_free()
-		
 	var pathSpawnerNode = root.get_node("PathSpawner")
 	var target = null
 	
@@ -41,6 +38,9 @@ func _physics_process(delta):
 		look_at(target_position)
 		move_and_slide()
 	else:
+		timeToLive -= delta
+		if timeToLive <= 0:
+			queue_free()
 		move_and_slide()
 
 func _on_collision_body_entered(body):
