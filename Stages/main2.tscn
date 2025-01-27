@@ -57,6 +57,7 @@ layer_1/tile_data = PackedInt32Array(720914, 65536, 10, 786450, 65536, 10, 78645
 script = ExtResource("2_7vgao")
 
 [node name="Timer" type="Timer" parent="PathSpawner"]
+wait_time = 2.0
 autostart = true
 
 [node name="Towers" type="Node2D" parent="."]

@@ -24,8 +24,10 @@ func setup_root():
 		root = get_tree().get_root().get_node("Main4")
 		
 
-func _process(delta):
+func _ready():
 	setup_root()
+
+func _process(delta):
 	get_node("Upgrade/ProgressBar").global_position = self.position + Vector2(-64,-81)
 	if is_instance_valid(curr):
 		self.look_at(curr.global_position)
@@ -84,6 +86,17 @@ func choose_target():
 		Shoot()
 		timer.paused = false
 
+func _on_input_event(viewport, event, shape_idx):
+	setup_root()
+	if event is InputEventMouseButton and event.button_mask == 1:
+		var towerPath = root.get_node("Towers")
+		for i in towerPath.get_child_count():
+			if towerPath.get_child(i).name != self.name:
+				towerPath.get_child(i).get_node("Upgrade/Upgrade").hide()
+		get_node("Upgrade/Upgrade").visible = !get_node("Upgrade/Upgrade").visible
+		get_node("Upgrade/Upgrade").global_position = self.position + Vector2(-572,81)
+		
+
 func _on_range_pressed():
 	range += 30
 	if Game.Gold >= 20:
@@ -103,7 +116,10 @@ func _on_power_pressed():
 		Game.Gold -= 20
 		
 func _on_timer_timeout():
-	Shoot()
+	if curr != null:
+		Shoot()
+	else:
+		timer.paused = true
 
 
 func _on_range_mouse_entered():
