@@ -6,7 +6,7 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xhgpr"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wkvv5"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qggke"]
 shader = ExtResource("2_g76kh")
 shader_parameter/Strength = 5.0
 shader_parameter/RandomOffset = 1.0
@@ -23,7 +23,7 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_xhgpr")
 
 [node name="TowerDefenseTile251" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_wkvv5")
+material = SubResource("ShaderMaterial_qggke")
 rotation = 1.5708
 texture = ExtResource("3_gpr6i")
 

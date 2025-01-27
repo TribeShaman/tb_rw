@@ -65,6 +65,10 @@ script = SubResource("GDScript_bahdm")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(1792, 1024)
+limit_left = -60
+limit_top = -320
+limit_right = 4730
+limit_bottom = 2560
 script = ExtResource("3_ogqfg")
 
 [node name="UI" parent="." instance=ExtResource("4_4jwic")]

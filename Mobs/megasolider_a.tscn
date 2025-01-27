@@ -4,11 +4,15 @@
 [ext_resource type="Shader" path="res://Shaders/shadow.gdshader" id="2_a0x7n"]
 [ext_resource type="Texture2D" uid="uid://gydq1rtfy50l" path="res://tower-defense-top-down/PNG/Default size/towerDefense_tile246.png" id="2_pndjg"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_skm1f"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wdkg1"]
 shader = ExtResource("2_a0x7n")
-shader_parameter/rotation_angle = 0.0
-shader_parameter/shadow_offset = 0.1
-shader_parameter/shadow_color = Vector4(0, 0, 0, 0.5)
+shader_parameter/debug = false
+shader_parameter/border_scale = 2.0
+shader_parameter/shadow_offset = Vector2(5, 5)
+shader_parameter/color = Color(0, 0, 0, 0.294118)
+shader_parameter/blur_amount = 0.0
+shader_parameter/shadow_scale = 1.5
+shader_parameter/disable_rotating = false
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2nkuh"]
 
@@ -34,7 +38,7 @@ scale = Vector2(3, 3)
 script = ExtResource("1_o7i0s")
 
 [node name="TowerDefenseTile245" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_skm1f")
+material = SubResource("ShaderMaterial_wdkg1")
 texture = ExtResource("2_pndjg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
