@@ -23,10 +23,10 @@ func _ready():
 func _process(delta):
 	if Game.Health <= 0:
 		await get_tree().create_timer(2).timeout
-		get_tree().change_scene_to_file(\"res://MainMenu.tscn\")
+		get_tree().change_scene_to_file(\"res://Lose.tscn\")
 	if Game.EnemiesDown >= Game.EnemiesDownThreshold:
 		await get_tree().create_timer(2).timeout
-		get_tree().change_scene_to_file(\"res://MainMenu.tscn\")
+		get_tree().change_scene_to_file(\"res://Win.tscn\")
 "
 
 [sub_resource type="GDScript" id="GDScript_bahdm"]
