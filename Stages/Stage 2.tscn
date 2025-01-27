@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://scpwjhp8vb2g"]
 
-[ext_resource type="PackedScene" uid="uid://jn2rceiqhdmc" path="res://Mobs/solider_a.tscn" id="1_axkah"]
+[ext_resource type="PackedScene" uid="uid://jn2rceiqhdmc" path="res://Mobs/soldier.tscn" id="1_2gv60"]
 
 [sub_resource type="Curve2D" id="Curve2D_13his"]
 _data = {
@@ -15,4 +15,4 @@ curve = SubResource("Curve2D_13his")
 position = Vector2(40, 1120)
 loop = false
 
-[node name="Solider A" parent="PathSpawner" instance=ExtResource("1_axkah")]
+[node name="Soldier" parent="PathSpawner" instance=ExtResource("1_2gv60")]

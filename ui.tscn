@@ -30,7 +30,7 @@ func _process(delta):
 [node name="UI" type="CanvasLayer"]
 
 [node name="Panel" type="Panel" parent="."]
-offset_left = 2944.0
+offset_left = 3215.0
 offset_right = 3584.0
 offset_bottom = 2048.0
 

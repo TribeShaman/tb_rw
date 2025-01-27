@@ -8,8 +8,6 @@ var tracks = {
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
-	#change_music(1)
-	#volume_db = -30
 
 
 func change_music(level: int):

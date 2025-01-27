@@ -67,7 +67,7 @@ func _on_gui_input(event):
 				placement_canceled = false
 				return
 				
-			if event.global_position.x >= 2944:
+			if event.global_position.x >= 3215:
 				if get_child_count() > 1:
 					get_child(1).queue_free()
 			else:

@@ -44,7 +44,7 @@ func _physics_process(delta):
 		move_and_slide()
 
 func _on_collision_body_entered(body):
-	if "Solider A" in body.name:
+	if "Soldier" in body.name:
 		body.Health -= bulletDamage
 		queue_free()
 		

@@ -52,7 +52,7 @@ func _on_tower_body_entered(body):
 	if startShooting == false:
 		return
 		
-	if "Solider" in body.name:
+	if "Soldier" in body.name:
 		if body not in currTargets:
 			currTargets.append(body)
 	

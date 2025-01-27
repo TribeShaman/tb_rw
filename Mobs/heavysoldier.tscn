@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://dlqdf5gvg1tlp"]
 
-[ext_resource type="Script" path="res://Mobs/megasolider.gd" id="1_o7i0s"]
-[ext_resource type="Shader" path="res://Shaders/shadow.gdshader" id="2_a0x7n"]
-[ext_resource type="Texture2D" uid="uid://gydq1rtfy50l" path="res://tower-defense-top-down/PNG/Default size/towerDefense_tile246.png" id="2_pndjg"]
+[ext_resource type="Script" path="res://Mobs/heavysoldier.gd" id="1_p4let"]
+[ext_resource type="Shader" path="res://Shaders/shadow.gdshader" id="2_arocj"]
+[ext_resource type="Texture2D" uid="uid://gydq1rtfy50l" path="res://tower-defense-top-down/PNG/Default size/towerDefense_tile246.png" id="3_phmax"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wdkg1"]
 shader = ExtResource("2_a0x7n")
@@ -33,9 +33,9 @@ func _process(delta):
 	self.value = get_parent().Health
 "
 
-[node name="MegaSoldier" type="CharacterBody2D"]
+[node name="Heavy Soldier" type="CharacterBody2D"]
 scale = Vector2(3, 3)
-script = ExtResource("1_o7i0s")
+script = ExtResource("1_p4let")
 
 [node name="TowerDefenseTile245" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_wdkg1")

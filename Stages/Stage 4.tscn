@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dgkgd6itfs7o1"]
 
-[ext_resource type="PackedScene" uid="uid://jn2rceiqhdmc" path="res://Mobs/solider_a.tscn" id="1_xvy26"]
+[ext_resource type="PackedScene" uid="uid://jn2rceiqhdmc" path="res://Mobs/soldier.tscn" id="1_xvy26"]
 
 [sub_resource type="Curve2D" id="Curve2D_13his"]
 _data = {
@@ -16,4 +16,4 @@ position = Vector2(993, 1960)
 rotation = -1.59127
 loop = false
 
-[node name="Solider A" parent="PathSpawner" instance=ExtResource("1_xvy26")]
+[node name="Soldier" parent="PathSpawner" instance=ExtResource("1_xvy26")]
