@@ -100,22 +100,29 @@ func _on_input_event(viewport, event, shape_idx):
 		
 
 func _on_range_pressed():
+	if Game.Gold < 10:
+		return
+		
+	Game.Gold -= 10
 	range += 30
-	if Game.Gold >= 10:
-		Game.Gold -= 10
 		
 func _on_attack_speed_pressed():
-	if reload <= 2:
+	if Game.Gold < 20:
+		return
 		
-		reload += 0.1
+	if reload >= 1.5:
+		return
+		
+	reload += 0.1
 	timer.wait_time = 5 - reload
-	if Game.Gold >= 10:
-		Game.Gold -= 10
+	Game.Gold -= 10
 		
 func _on_power_pressed():
+	if Game.Gold < 20:
+		return
+		
 	bulletDamage += 1
-	if Game.Gold >= 10:
-		Game.Gold -= 10
+	Game.Gold -= 20
 		
 func _on_timer_timeout():
 	if curr != null:
