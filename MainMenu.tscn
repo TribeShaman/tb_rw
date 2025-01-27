@@ -43,16 +43,16 @@ layer_1/name = "Layer 1"
 layer_1/tile_data = PackedInt32Array(786457, 983040, 5, 917533, 983040, 5, 1114131, 983040, 5, 1245207, 983040, 5, 1376274, 983040, 5, 720910, 983040, 5, 720915, 983040, 5, 851990, 983040, 5, 589832, 983040, 5, 589839, 983040, 5, 851979, 983040, 5, 1114121, 983040, 5, 852003, 983040, 5, 458775, 983040, 5)
 
 [node name="Panel" type="Panel" parent="."]
-offset_left = 320.0
+offset_left = 229.0
 offset_top = 128.0
-offset_right = 3201.0
+offset_right = 3316.0
 offset_bottom = 1792.0
 
 [node name="Label" type="Label" parent="."]
 offset_right = 3585.0
 offset_bottom = 652.0
 theme_override_font_sizes/font_size = 100
-text = "Welcome To the Main Menu, you will now suffer"
+text = "Welcome To the Main Menu, build towers to protect the path"
 horizontal_alignment = 1
 vertical_alignment = 1
 

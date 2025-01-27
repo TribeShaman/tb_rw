@@ -12,12 +12,18 @@ script/source = "extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	Game.Health = 10
+	Game.Gold = 40
+	Game.EnemiesDown = 0
+	Game.EnemiesDownThreshold = 40
+	Game.EnemiesRemaining = Game.EnemiesDownThreshold
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Game.Health <= 0:
+		get_tree().change_scene_to_file(\"res://MainMenu.tscn\")
+	if Game.EnemiesDown >= Game.EnemiesDownThreshold:
 		get_tree().change_scene_to_file(\"res://MainMenu.tscn\")
 "
 

@@ -15,7 +15,7 @@ func _ready():
 	Game.Health = 2
 	Game.Gold = 20
 	Game.EnemiesDown = 0
-	Game.EnemiesDownThreshold = 5
+	Game.EnemiesDownThreshold = 20
 	Game.EnemiesRemaining = Game.EnemiesDownThreshold
 
 
